@@ -14,7 +14,7 @@ function calculateHandler(event) {
     event.preventDefault();
 
     // retrieve values from form
-    formData = getFormValues();
+    const formData = getFormValues();
 
     // calculate maintenance
     const calories = calculateCalories(formData);
@@ -30,6 +30,7 @@ function getFormValues() {
     const weight = parseFloat(document.querySelector('#weight').value);
     const activity = parseFloat(document.querySelector('#activity').value);
 
+    // return values as an object
     return {
         age: age,
         gender: gender,
@@ -39,7 +40,9 @@ function getFormValues() {
     };
 }
 
+// calculate and return maintenance calories
 function calculateCalories(formData) {
+    // calculate bmr using miffin st jeor
     let bmr;
     if (formData.gender === 'male') {
         bmr = (10 * formData.weight) + (6.25 * formData.height) - (5 * formData.age) + 5;
@@ -47,13 +50,22 @@ function calculateCalories(formData) {
         bmr = (10 * formData.weight) + (6.25 * formData.height) - (5 * formData.age) - 161;
     }
 
+    // return maintenance by returning bmr * activity level 
     const maintenance = Math.round(bmr * formData.activity);
     return maintenance;
 }
 
+// display maintenance and calories to gain/lose
 function displayResults(calories) {
     const resultDiv = document.querySelector('#result');
     if (resultDiv) {
-        resultDiv.innerHTML = `<h2>Maintenance Calories: ${calories}/day`;
+        const loseWeight = calories - 500;
+        const gainWeight = calories + 500;
+
+        resultDiv.innerHTML = `
+        <h2>Results from Calculations</h2>
+        <p>Maintenance Calories: ${calories}/day</p>
+        <p>Calories to Lose Weight: ${loseWeight}/day</p>
+        <p>Calories to Gain Weight: ${gainWeight}/day</p>`;
     }
 }

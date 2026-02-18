@@ -6,7 +6,16 @@
     <title>Calculate Calories</title>
 </head>
 <body>
-    <h1>Calculate Your Maintenance Calories</h1>
+    <header>
+        <h1>Fitness Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="caloriecalculate.html">Calorie Calculator</a></li>
+            </ul>
+        </nav>
+        <h2>Calculate Your Maintenance Calories</h2>
+    </header>
     
     <form id="calorieform">
         <div>
@@ -34,7 +43,7 @@
         <br>
         <div>
             <label for="activity">Weekly Activity Level</label>
-            <select name="activity" name="activity" id="activity">
+            <select name="activity" id="activity">
                 <option value="">--Select an Option--</option>
                 <option value=1>Basal Metabolic Rate</option>
                 <option value=1.2>Sedentary: little to no exercise</option>
@@ -53,6 +62,6 @@
 
     <div id="result"></div>
 
-    <script src="caloriecalculate.js"></script>
+    <script src="js\caloriecalculate.js"></script>
 </body>
 </html>
