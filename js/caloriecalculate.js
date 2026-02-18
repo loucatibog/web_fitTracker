@@ -59,13 +59,43 @@ function calculateCalories(formData) {
 function displayResults(calories) {
     const resultDiv = document.querySelector('#result');
     if (resultDiv) {
-        const loseWeight = calories - 500;
-        const gainWeight = calories + 500;
+        const weightLoss = calories - 500;
+        const aggressiveLoss = calories - 1000;
+        const weightGain = calories + 500;
+        const aggressiveGain = calories + 1000;
 
         resultDiv.innerHTML = `
-        <h2>Results from Calculations</h2>
-        <p>Maintenance Calories: ${calories}/day</p>
-        <p>Calories to Lose Weight: ${loseWeight}/day</p>
-        <p>Calories to Gain Weight: ${gainWeight}/day</p>`;
+            <h2>Your Results</h2>
+            <table class="contents-table">
+                <thead>
+                    <tr>
+                        <th>Goal</th>
+                        <th>Calories/day</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Aggressive Weight Loss (1kg/week)</td>
+                        <td>${aggressiveLoss}</td>
+                    </tr>
+                    <tr>
+                        <td>Weight Loss (0.5kg/week)</td>
+                        <td>${weightLoss}</td>
+                    </tr>
+                    <tr>
+                        <td>Maintenance</td>
+                        <td>${calories}</td>
+                    </tr>
+                    <tr>
+                        <td>Weight Gain (0.5kg/week)</td>
+                        <td>${weightGain}</td>
+                    </tr>
+                    <tr>
+                        <td>Aggressive Weight Gain (1kg/week)</td>
+                        <td>${aggressiveGain}</td>
+                    </tr>
+                </tbody>
+            </table>
+        `;
     }
 }

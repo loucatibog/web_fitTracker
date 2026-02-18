@@ -1,0 +1,97 @@
+
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    margin: 20px;
+} 
+
+h1 {
+    text-align: center;
+}
+
+.navbar ul{
+    list-style-type: none;
+    background-color: #009879;;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+
+.navbar a{
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+}
+
+.navbar a:hover{
+    background-color: rgb(150, 150, 150);
+}
+
+.navbar li{
+    float: left;
+}
+
+.contents-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9 em;
+    min-width: 400px;
+}
+
+.contents-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.contents-table th, .contents-table td {
+    padding: 12px 15px;   
+}
+
+.contents-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.contents-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.contents-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+form label,
+form input {
+    display: block;
+    margin: 1px;
+}
+
+form input, 
+form select{
+    display: block;
+    margin-bottom: 8px;    /* consistent gap below each input */
+}
+
+input[type="radio"],
+#genderRadio label {
+    display: inline;
+    margin: 2px;        /* reduce from 10px */
+}
+
+#genderRadio {
+    margin-bottom: 8px;    
+}
+
+select {
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 12px;
+}

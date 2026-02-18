@@ -4,46 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculate Calories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <header>
-        <h1>Fitness Tracker</h1>
-        <nav>
-            <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="caloriecalculate.html">Calorie Calculator</a></li>
-            </ul>
-        </nav>
-        <h2>Calculate Your Maintenance Calories</h2>
-    </header>
-    
-    <form id="calorieform">
-        <div>
-            <label for="age">Age</label>
-            <input type="number" name="age" id="age">
-        </div>
-        <br>
-        <div>
-            <label for="male">Male</label>
-            <input type="radio" id="male" name="gender" value="male">
+    <h1>Fitness Tracker</h1>
 
-            <label for="female">Female</label>
-            <input type="radio" id="female" name="gender" value="female">
-        </div>
-        <br>
-        <div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="caloriecalculate.html">Calorie Calculator</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <h2>Calculate Your Maintenance Calories</h2>
+        <form id="calorieform" method="POST">
+            <label for="age">Age</label>
+            <input type="number" id="age" required>
+
+            <div id="genderRadio">
+                <label for="gender">Gender:</label>
+                <label for="male">Male</label>
+                <input type="radio" id="male" value="male" name="gender">
+                <label for="female">Female</label>
+                <input type="radio" id="female" value="female" name="gender">
+            </div>
+
             <label for="height">Height in centimetres</label>
-            <input type="input" name="height" id="height">
-        </div>
-        <br>
-        <div>
+            <input type="number" id="height">
+
             <label for="weight">Weight in kilograms</label>
-            <input type="input" name="weight" id="weight">
-        </div>
-        <br>
-        <div>
+            <input type="number" id="weight">
+
             <label for="activity">Weekly Activity Level</label>
-            <select name="activity" id="activity">
+            <select id="activity">
                 <option value="">--Select an Option--</option>
                 <option value=1>Basal Metabolic Rate</option>
                 <option value=1.2>Sedentary: little to no exercise</option>
@@ -52,15 +47,14 @@
                 <option value=1.55>Active: daily exercise/intense exercise 3-4 times/week</option>
                 <option value=1.9>Very: intense exercise 6-7 times/week</option>
                 <option value=2>Extra: very intense exercise daily/labour intensive job</option>
-
             </select>
-        </div>
-        
-        <br>
-        <button type="submit">Calculate Calories</button>
-    </form>
 
-    <div id="result"></div>
+                <button type="submit">Calculate Calories</button>
+                <button type="reset">Reset</button>
+        </form>
+    
+        <div id="result"></div>
+    </main>
 
     <script src="../js/caloriecalculate.js"></script>
 </body>
