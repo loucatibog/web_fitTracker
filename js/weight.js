@@ -5,11 +5,12 @@ function weightInitializer() {
     // check if form exists
     const weightForm = document.querySelector('#weightForm');
     if (weightForm) {
+
+        // load past entries when page loads
+        displayEntries();
+
         weightForm.addEventListener('submit', weightHandler);
     }
-
-    // load past entries when page loads
-    displayEntries();
 }
 
 function weightHandler(event) {
@@ -28,7 +29,7 @@ function weightHandler(event) {
 
 function getFormValues() {
     // retrieve values from the input elements
-    const date = document.querySelector('#date');
+    const date = document.querySelector('#date').value;
     const weight = parseFloat(document.querySelector('#weight').value);
     
     // return values as an object
@@ -49,6 +50,16 @@ function saveEntry(formData) {
     localStorage.setItem('weightEntries', JSON.stringify(entries));
 }
 
+function deleteEntry(index) {
+    const entries = JSON.parse(localStorage.getItem('weightEntries'));
+
+    entries.splice(index, 1);
+
+    localStorage.setItem('weightEntries', JSON.stringify(entries));
+
+    displayEntries();
+}
+
 function displayEntries() {
     // retrieve entries from localStorage
     const entries = JSON.parse(localStorage.getItem('weightEntries'));
@@ -57,7 +68,6 @@ function displayEntries() {
     
     if (entries.length === 0) {
         weightHistory.innerHTML = '<p>No entries yet. Log weight above to see results</p>';
-        weightHistory.innerHTML = '';
         return;
     }
 
@@ -76,12 +86,13 @@ function displayEntries() {
 
     // display past entries in a table
     weightHistory.innerHTML =`
-        <h3>Weight Entries</h3>
+    <h3>Weight Entries</h3>
     <table class="contents-table">
         <thead>
             <tr>
                 <th>Date</th>
                 <th>Weight (kg)</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -89,6 +100,7 @@ function displayEntries() {
                 <tr>
                     <td>${entry.date}</td>
                     <td>${entry.weight}</td>
+                    <td><button onclick="deleteEntry(${index})">Delete</button></td>
                 </tr>
            `).join('')}
         </tbody>
