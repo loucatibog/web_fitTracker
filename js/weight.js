@@ -60,6 +60,27 @@ function deleteEntry(index) {
     displayEntries();
 }
 
+function displayChart(entries) {
+    const canvas = document.querySelector('#weightChart');
+
+    const dates = entries.map(entry => entry.date);
+    const weights = entries.map(entry => entry.weight);
+
+    new Chart(canvas, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Weight KG',
+                data: weights,
+                borderColor: '#009879',
+                backgroundColor: 'rgba(0, 152, 121, 0.1)',
+                tension: 0.3
+            }]
+        }
+    });
+}
+
 function displayEntries() {
     // retrieve entries from localStorage
     const entries = JSON.parse(localStorage.getItem('weightEntries'));
@@ -107,4 +128,6 @@ function displayEntries() {
            `).join('')}
         </tbody>
     </table>`;
+
+    displayChart(entries);
 }
