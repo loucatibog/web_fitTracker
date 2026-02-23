@@ -76,6 +76,8 @@ function displayEntries() {
     const currentWeight = entries[entries.length - 1].weight;
     const totalChange = startWeight - currentWeight;
 
+    entries.sort((current, next) => new Date(next.date) - new Date(current.date));
+    
     // display the summary of calculations
     weightSummary.innerHTML = `
         <h3>Summary</h3>
