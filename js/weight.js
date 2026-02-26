@@ -4,15 +4,21 @@ let weightChart = null;
 document.addEventListener('DOMContentLoaded', weightInitializer);
 
 function weightInitializer() {
-    // check if form exists
-    const weightForm = document.querySelector('#weightForm');
-    if (weightForm) {
+    // load past entries when page loads
+    displayEntries();
 
-        // load past entries when page loads
-        displayEntries();
+    // get log weight button
+    const submitButton = document.querySelector('button[type="submit"');
+    submitButton.addEventListener('click', weightHandler);
 
-        weightForm.addEventListener('submit', weightHandler);
-    }
+    // get reset button
+    const resetButton = document.querySelector('button[type="reset"');
+    submitButton.addEventListener('click', resetInputs);
+}
+
+function resetInputs() {
+    document.querySelector('#date').value = '';
+    document.querySelector('#weight').value = '';
 }
 
 function weightHandler(event) {
