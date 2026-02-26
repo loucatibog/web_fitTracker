@@ -2,11 +2,29 @@
 document.addEventListener('DOMContentLoaded', calorieCalcInitializer);
 
 function calorieCalcInitializer() {
-    // check if form exists
-    const calorieform = document.querySelector('#calorieform');
-    if (calorieform) {
-        calorieform.addEventListener('submit', calculateHandler);
+    const calculateButton = document.querySelector('button[type="submit"]');
+    calculateButton.addEventListener('click', calculateHandler);
+
+    const resetButton = document.querySelector('button[type="reset"]');
+    resetButton.addEventListener('click', resetInputs);
+
+}
+
+function resetInputs() {
+    // reset input fields
+    const inputs = document.querySelectorAll('input[type="number"]');
+    for (const input of inputs) {
+        input.value = '';
     }
+
+    // reset all radio
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    for (const radio of radioButtons) {
+        radio.checked = false;
+    }
+
+    // reset drop down
+    document.querySelector('#activity').selectedIndex = 0;
 }
 
 function calculateHandler(event) {

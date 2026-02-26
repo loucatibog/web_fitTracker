@@ -13,7 +13,7 @@ function weightInitializer() {
 
     // get reset button
     const resetButton = document.querySelector('button[type="reset"');
-    submitButton.addEventListener('click', resetInputs);
+    resetButton.addEventListener('click', resetInputs);
 }
 
 function resetInputs() {
@@ -133,16 +133,16 @@ function displayEntries() {
     // calculate start, current and weight difference
     const startWeight = entries[0].weight;
     const currentWeight = entries[entries.length - 1].weight;
-    const totalChange = (startWeight - currentWeight).toFixed(2);
+    const totalChange = (currentWeight - startWeight).toFixed(2);
 
     entries.sort((current, next) => new Date(next.date) - new Date(current.date));
     
     // display the summary of calculations
     weightSummary.innerHTML = `
         <h3>Summary</h3>
-        <p>Starting Weight: ${startWeight}</p>
-        <p>Current Weight: ${currentWeight}</p>
-        <p>Total Change: ${totalChange}</p>
+        <p>Starting Weight: ${startWeight} KG</p>
+        <p>Current Weight: ${currentWeight} KG</p>
+        <p>Total Change: ${totalChange} KG</p>
     `;
 
     // display past entries in a table
