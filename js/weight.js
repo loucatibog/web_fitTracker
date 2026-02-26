@@ -147,7 +147,7 @@ function displayEntries() {
 
     // display past entries in a table
     weightHistory.innerHTML =`
-    <h3>Weight Entries</h3>
+    <h3>Weight Entries (recent to oldest)</h3>
     <table class="contents-table">
         <thead>
             <tr>
