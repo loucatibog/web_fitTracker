@@ -1,3 +1,5 @@
+let weightChart = null;
+
 // wait for html to finish loading
 document.addEventListener('DOMContentLoaded', weightInitializer);
 
@@ -23,12 +25,12 @@ function weightHandler(event) {
     // save data in localStorage
     saveEntry(formData);
 
-    // display updated entries
+    // refresh table for updated entries
     displayEntries();
 }
 
+// retrieve values from the input elements
 function getFormValues() {
-    // retrieve values from the input elements
     const date = document.querySelector('#date').value;
     const weight = parseFloat(document.querySelector('#weight').value);
     
@@ -36,9 +38,14 @@ function getFormValues() {
     return {date: date, weight: weight};
 }
 
+// get and return entries from local storage
+function getEntries() {
+    return entries = JSON.parse(localStorage.getItem('weightEntries')) || [];
+}
+
 function saveEntry(formData) {
     // get existing entries from localStorage, or start with empty array
-    const entries = JSON.parse(localStorage.getItem('weightEntries')) || [];
+    const entries = getEntries();
 
     // add new entry to array
     entries.push({
@@ -50,8 +57,9 @@ function saveEntry(formData) {
     localStorage.setItem('weightEntries', JSON.stringify(entries));
 }
 
+// remove entries from local storage
 function deleteEntry(index) {
-    const entries = JSON.parse(localStorage.getItem('weightEntries'));
+    const entries = getEntries();
 
     entries.splice(index, 1);
 
@@ -60,13 +68,22 @@ function deleteEntry(index) {
     displayEntries();
 }
 
-function displayChart(entries) {
+// display weight changes over time in a graph
+function displayChart() {
+    const entries = JSON.parse(localStorage.getItem('weightEntries'));
     const canvas = document.querySelector('#weightChart');
+
+    if (weightChart) {
+        weightChart.destroy();
+    }
+
+    // reverse the list so that it goes from old to new - left to right
+    entries.sort((current, next) => new Date(current.date) - new Date(next.date));
 
     const dates = entries.map(entry => entry.date);
     const weights = entries.map(entry => entry.weight);
 
-    new Chart(canvas, {
+    weightChart = new Chart(canvas, {
         type: 'line',
         data: {
             labels: dates,
@@ -77,18 +94,29 @@ function displayChart(entries) {
                 backgroundColor: 'rgba(0, 152, 121, 0.1)',
                 tension: 0.3
             }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true
         }
     });
 }
 
 function displayEntries() {
     // retrieve entries from localStorage
-    const entries = JSON.parse(localStorage.getItem('weightEntries'));
+    const entries = getEntries();
+
     const weightHistory= document.querySelector('#weightHistory');
     const weightSummary = document.querySelector('#weightSummary');
     
     if (entries.length === 0) {
         weightHistory.innerHTML = '<p>No entries yet. Log weight above to see results</p>';
+        
+        // Hide canvas and destroy chart when no entries
+        if (weightChart) {
+            weightChart.destroy();
+            weightChart = null;
+        }
         return;
     }
 
@@ -129,5 +157,5 @@ function displayEntries() {
         </tbody>
     </table>`;
 
-    displayChart(entries);
+    displayChart();
 }
