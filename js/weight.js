@@ -83,6 +83,7 @@ function displayChart() {
     const dates = entries.map(entry => entry.date);
     const weights = entries.map(entry => entry.weight);
 
+    canvas.style.display = 'block';
     weightChart = new Chart(canvas, {
         type: 'line',
         data: {
@@ -108,11 +109,14 @@ function displayEntries() {
 
     const weightHistory= document.querySelector('#weightHistory');
     const weightSummary = document.querySelector('#weightSummary');
-    
+    const canvas = document.querySelector('#weightChart');
+
     if (entries.length === 0) {
         weightHistory.innerHTML = '<p>No entries yet. Log weight above to see results</p>';
-        
+        weightSummary.innerHTML = '';
+
         // Hide canvas and destroy chart when no entries
+        canvas.style.display = 'none';
         if (weightChart) {
             weightChart.destroy();
             weightChart = null;
@@ -123,7 +127,7 @@ function displayEntries() {
     // calculate start, current and weight difference
     const startWeight = entries[0].weight;
     const currentWeight = entries[entries.length - 1].weight;
-    const totalChange = startWeight - currentWeight;
+    const totalChange = (startWeight - currentWeight).toFixed(2);
 
     entries.sort((current, next) => new Date(next.date) - new Date(current.date));
     
