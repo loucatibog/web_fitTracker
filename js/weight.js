@@ -46,7 +46,7 @@ function getFormValues() {
 
 // get and return entries from local storage
 function getEntries() {
-    return entries = JSON.parse(localStorage.getItem('weightEntries')) || [];
+    return JSON.parse(localStorage.getItem('weightEntries')) || [];
 }
 
 function saveEntry(formData) {
@@ -66,17 +66,14 @@ function saveEntry(formData) {
 // remove entries from local storage
 function deleteEntry(index) {
     const entries = getEntries();
-
-    entries.splice(index, 1);
-
-    localStorage.setItem('weightEntries', JSON.stringify(entries));
-
+    const updatedEntries = entries.filter(entry => entry.date !== date);
+    localStorage.setItem('weightEntries', JSON.stringify(updatedEntries));
     displayEntries();
 }
 
 // display weight changes over time in a graph
 function displayChart() {
-    const entries = JSON.parse(localStorage.getItem('weightEntries'));
+    const entries = getEntries();
     const canvas = document.querySelector('#weightChart');
 
     if (weightChart) {
@@ -130,12 +127,12 @@ function displayEntries() {
         return;
     }
 
+    entries.sort((current, next) => new Date(next.date) - new Date(current.date));
     // calculate start, current and weight difference
     const startWeight = entries[0].weight;
     const currentWeight = entries[entries.length - 1].weight;
     const totalChange = (currentWeight - startWeight).toFixed(2);
 
-    entries.sort((current, next) => new Date(next.date) - new Date(current.date));
     
     // display the summary of calculations
     weightSummary.innerHTML = `
@@ -161,7 +158,7 @@ function displayEntries() {
                 <tr>
                     <td>${entry.date}</td>
                     <td>${entry.weight}</td>
-                    <td><button onclick="deleteEntry(${index})">Delete</button></td>
+                    <td><button onclick="deleteEntry(${entry.date})">Delete</button></td>
                 </tr>
            `).join('')}
         </tbody>

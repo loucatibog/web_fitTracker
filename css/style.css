@@ -139,3 +139,10 @@ button:hover {
     border-radius: 8px;
     transition: all 0.3s;
 }
+
+.contents-table {
+    display: block;
+    max-height: 300px;
+    overflow-y: scroll;
+    width: fit-content;
+}
